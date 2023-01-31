@@ -129,22 +129,24 @@ const Wrapper = ({children}) => {
 const CartButton = ({pic}) => {
       
       const {cartItems,setCartItems} = useCart();
-    
+      let [cartLabel,setCartLabel] = useState('CART');
     const onAddToCart = () => {
+       setCartLabel('ADDED'); 
        setCartItems((prev) => [
         {
           url:pic,
           price:'20 $'
         },
         ...prev]);
+       setTimeout(() => {setCartLabel('CART')},2000);
       
    }
-   
-
    return (
-      <button onClick = {onAddToCart} className='flex-row outline-0 w-[80%] h-12 text-white bg-black rounded flex justify-center items-center mt-1 mb-3'>
+      <button onClick = {onAddToCart} 
+      className = {`flex-row outline-0 w-[80%] h-12 ${cartLabel == 'ADDED' ? 'text-black bg-white' : 'text-white bg-black' }  rounded flex justify-center items-center mt-1 mb-3`}
+      >
                     <span className='text-3xl mr-2 mb-1'>  + </span>
-                       <strong className='text-xl'> CART </strong>   
+                       <strong className='text-xl'> {cartLabel} </strong>   
       </button>
     )
 
